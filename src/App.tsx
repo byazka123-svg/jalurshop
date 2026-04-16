@@ -167,21 +167,22 @@ function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative py-16 md:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative py-16 md:py-32 bg-slate-900 text-white">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 text-slate-900">
-              Produk pilihan <span className="text-secondary">terbaik</span> buat kamu
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 text-white">
+              Review jujur <span className="text-secondary">produk pilihan</span>
             </h1>
-            <p className="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
-              Koleksi rekomendasi produk berkualitas dari marketplace terpercaya, dikurasi khusus untuk memenuhi gaya hidupmu.
-            </p>
             <div className="flex justify-center gap-4">
-              <a href="#products" className="px-10 py-4 bg-primary text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all">
+              <a href="#products" className="px-10 py-4 bg-primary text-white rounded-2xl font-bold shadow-xl shadow-blue-900/20 hover:bg-blue-700 hover:-translate-y-1 transition-all">
                 Lihat Katalog
               </a>
             </div>
@@ -198,7 +199,7 @@ function HomePage() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                 <input
                   type="text"
-                  placeholder="Cari produk impianmu..."
+                  placeholder="Cari produk..."
                   className="w-full pl-10 pr-4 py-3 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-primary transition-all outline-none"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -388,17 +389,6 @@ function ProductDetailPage() {
             {product.description}
           </p>
 
-          <div className="space-y-6 mb-10">
-            <div className="flex items-center gap-3 text-slate-700">
-              <CheckCircle2 className="text-green-500" size={20} />
-              <span className="font-medium">Produk Terverifikasi</span>
-            </div>
-            <div className="flex items-center gap-3 text-slate-700">
-              <CheckCircle2 className="text-green-500" size={20} />
-              <span className="font-medium">Marketplace Terpercaya</span>
-            </div>
-          </div>
-
           <div className="flex flex-col sm:flex-row gap-4 mt-auto">
             <a 
               href={product.affiliateLink}
@@ -427,7 +417,7 @@ function ProductDetailPage() {
       {/* Blog-style Review Section */}
       <div className="border-t border-slate-200 pt-20 max-w-4xl mx-auto">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Review Mendalam</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Review Jujur</h2>
           <div className="w-20 h-1.5 bg-secondary mx-auto rounded-full" />
         </div>
         
@@ -528,10 +518,7 @@ export default function App() {
                 <div className="w-20 h-20 bg-green-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-green-500/20 rotate-3">
                   <MessageCircle size={40} className="text-white" />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Update Promo via WhatsApp!</h2>
-                <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
-                  Dapatkan info produk terbaru, diskon eksklusif, dan rekomendasi harian langsung di ponselmu. Gabung grup komunitas Jalur Shop sekarang!
-                </p>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Join Komunitas</h2>
                 <div className="flex justify-center">
                   <a 
                     href="https://chat.whatsapp.com/your-group-link" 
@@ -551,9 +538,9 @@ export default function App() {
         {/* Footer */}
         <footer className="bg-white border-t border-slate-200 pt-16 pb-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-              <div className="col-span-1 md:col-span-1">
-                <div className="flex items-center gap-2 mb-6">
+            <div className="flex flex-col items-center text-center mb-16">
+              <div className="max-w-md">
+                <div className="flex items-center justify-center gap-2 mb-6">
                   <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
                     <ShoppingBag size={18} />
                   </div>
@@ -562,7 +549,7 @@ export default function App() {
                 <p className="text-slate-500 text-sm leading-relaxed mb-6">
                   Platform showcase produk affiliate terpercaya. Kami mengkurasi produk terbaik dari berbagai marketplace untuk kemudahan belanja Anda.
                 </p>
-                <div className="flex gap-4">
+                <div className="flex justify-center gap-4">
                   <a href="#" className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition-all">
                     <Twitter size={18} />
                   </a>
@@ -573,34 +560,6 @@ export default function App() {
                     <Github size={18} />
                   </a>
                 </div>
-              </div>
-
-              <div>
-                <h4 className="font-bold text-slate-900 mb-6">Quick Links</h4>
-                <ul className="space-y-4 text-sm text-slate-500">
-                  <li><Link to="/" className="hover:text-primary transition-colors">Home</Link></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Kebijakan Privasi</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Syarat & Ketentuan</a></li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="font-bold text-slate-900 mb-6">Kategori</h4>
-                <ul className="space-y-4 text-sm text-slate-500">
-                  <li><Link to="/?category=Electronics" className="hover:text-primary transition-colors">Electronics</Link></li>
-                  <li><Link to="/?category=Fashion" className="hover:text-primary transition-colors">Fashion</Link></li>
-                  <li><Link to="/?category=Home" className="hover:text-primary transition-colors">Home & Living</Link></li>
-                  <li><Link to="/?category=Gadgets" className="hover:text-primary transition-colors">Gadgets</Link></li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="font-bold text-slate-900 mb-6">Hubungi Kami</h4>
-                <ul className="space-y-4 text-sm text-slate-500">
-                  <li>Email: hello@jalurshop.com</li>
-                  <li>WhatsApp: +62 812 3456 7890</li>
-                  <li>Alamat: Jakarta, Indonesia</li>
-                </ul>
               </div>
             </div>
             
