@@ -37,7 +37,7 @@ import {
 } from 'lucide-react';
 import { MOCK_PRODUCTS, CATEGORIES, Product } from './types';
 import { cn } from './lib/utils';
-import { fetchProducts, fetchProductBySlug } from './services/strapi';
+import { fetchProducts, fetchProductBySlug, fetchCategories } from './services/strapi';
 import { useSearchParams } from 'react-router-dom';
 
 // Scroll to top on route change
@@ -126,19 +126,24 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
 function HomePage() {
   const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS);
+  const [categories, setCategories] = useState<string[]>(CATEGORIES);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategory = searchParams.get('category') || 'All';
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadProducts = async () => {
+    const loadData = async () => {
       setIsLoading(true);
-      const data = await fetchProducts();
-      setProducts(data);
+      const [productsData, categoriesData] = await Promise.all([
+        fetchProducts(),
+        fetchCategories()
+      ]);
+      setProducts(productsData);
+      setCategories(categoriesData);
       setIsLoading(false);
     };
-    loadProducts();
+    loadData();
   }, []);
 
   const setCategory = (cat: string) => {
@@ -203,7 +208,7 @@ function HomePage() {
             </div>
             
             <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-              {CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setCategory(cat)}
@@ -582,10 +587,10 @@ export default function App() {
               <div>
                 <h4 className="font-bold text-slate-900 mb-6">Kategori</h4>
                 <ul className="space-y-4 text-sm text-slate-500">
-                  <li><a href="#" className="hover:text-primary transition-colors">Electronics</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Fashion</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Home & Living</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Beauty Care</a></li>
+                  <li><Link to="/?category=Electronics" className="hover:text-primary transition-colors">Electronics</Link></li>
+                  <li><Link to="/?category=Fashion" className="hover:text-primary transition-colors">Fashion</Link></li>
+                  <li><Link to="/?category=Home" className="hover:text-primary transition-colors">Home & Living</Link></li>
+                  <li><Link to="/?category=Gadgets" className="hover:text-primary transition-colors">Gadgets</Link></li>
                 </ul>
               </div>
 
